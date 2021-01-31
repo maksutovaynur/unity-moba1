@@ -1,1 +1,7 @@
 .*
+Temp/
+obj/
+BuildDebug/
+Logs/
+Library/
+.idea/
