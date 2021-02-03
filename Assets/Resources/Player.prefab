@@ -35,7 +35,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.04, y: 1.02}
+  m_AnchoredPosition: {x: 0.033, y: 1.527}
   m_SizeDelta: {x: 1.9214182, y: 1.1495354}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!23 &1145630872678537338
@@ -207,7 +207,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6630459827060566961}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.498, y: -2.257, z: -1346.842}
+  m_LocalPosition: {x: 0.447, y: -2.375, z: -1346.842}
   m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_Children:
   - {fileID: 9165904037671580153}
@@ -305,6 +305,9 @@ MonoBehaviour:
   jumpPullForce: 5
   movementSpeed: 1.6
   movementAcceleration: 1.8
+  fireballPrefab: {fileID: 6863912396455089922, guid: 1b97429fa5cdbce45810298b6f2657d9,
+    type: 3}
+  fireballInterval: 0.5
 --- !u!114 &3536707520317226841
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -379,8 +382,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.05061376, y: -0.55641127}
-  m_Size: {x: 0.59851575, y: 1.2082634}
+  m_Offset: {x: 0.025593758, y: -0.061040163}
+  m_Size: {x: 0.6485559, y: 1.2604728}
   m_Direction: 0
 --- !u!1 &9095253596247312074
 GameObject:
@@ -417,7 +420,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.03, y: 0.6}
+  m_AnchoredPosition: {x: 0.05, y: 1.061}
   m_SizeDelta: {x: 2.7998905, y: 0.6027603}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!23 &8835018101072334760

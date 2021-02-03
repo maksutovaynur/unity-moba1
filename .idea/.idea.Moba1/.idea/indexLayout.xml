@@ -26,6 +26,7 @@
       <Path>.git</Path>
       <Path>.idea</Path>
       <Path>BuildDebug</Path>
+      <Path>Dist</Path>
       <Path>Library</Path>
       <Path>Logs</Path>
       <Path>Temp</Path>
