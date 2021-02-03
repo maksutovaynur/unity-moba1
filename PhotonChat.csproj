@@ -58,21 +58,21 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Photon\PhotonChat\Code\ChannelCreationOptions.cs" />
-     <Compile Include="Assets\Photon\PhotonChat\Code\ChannelWellKnownProperties.cs" />
-     <Compile Include="Assets\Photon\PhotonChat\Code\ChatAppSettings.cs" />
-     <Compile Include="Assets\Photon\PhotonChat\Code\ChatChannel.cs" />
-     <Compile Include="Assets\Photon\PhotonChat\Code\ChatClient.cs" />
-     <Compile Include="Assets\Photon\PhotonChat\Code\ChatDisconnectCause.cs" />
-     <Compile Include="Assets\Photon\PhotonChat\Code\ChatEventCode.cs" />
-     <Compile Include="Assets\Photon\PhotonChat\Code\ChatOperationCode.cs" />
-     <Compile Include="Assets\Photon\PhotonChat\Code\ChatParameterCode.cs" />
-     <Compile Include="Assets\Photon\PhotonChat\Code\ChatPeer.cs" />
-     <Compile Include="Assets\Photon\PhotonChat\Code\ChatState.cs" />
-     <Compile Include="Assets\Photon\PhotonChat\Code\ChatUserStatus.cs" />
-     <Compile Include="Assets\Photon\PhotonChat\Code\IChatClientListener.cs" />
-     <None Include="Assets\Photon\PhotonChat\Code\changes-chat.txt" />
-     <None Include="Assets\Photon\PhotonChat\Code\PhotonChat.asmdef" />
+     <Compile Include="Assets\Imported\Photon\PhotonChat\Code\ChannelCreationOptions.cs" />
+     <Compile Include="Assets\Imported\Photon\PhotonChat\Code\ChannelWellKnownProperties.cs" />
+     <Compile Include="Assets\Imported\Photon\PhotonChat\Code\ChatAppSettings.cs" />
+     <Compile Include="Assets\Imported\Photon\PhotonChat\Code\ChatChannel.cs" />
+     <Compile Include="Assets\Imported\Photon\PhotonChat\Code\ChatClient.cs" />
+     <Compile Include="Assets\Imported\Photon\PhotonChat\Code\ChatDisconnectCause.cs" />
+     <Compile Include="Assets\Imported\Photon\PhotonChat\Code\ChatEventCode.cs" />
+     <Compile Include="Assets\Imported\Photon\PhotonChat\Code\ChatOperationCode.cs" />
+     <Compile Include="Assets\Imported\Photon\PhotonChat\Code\ChatParameterCode.cs" />
+     <Compile Include="Assets\Imported\Photon\PhotonChat\Code\ChatPeer.cs" />
+     <Compile Include="Assets\Imported\Photon\PhotonChat\Code\ChatState.cs" />
+     <Compile Include="Assets\Imported\Photon\PhotonChat\Code\ChatUserStatus.cs" />
+     <Compile Include="Assets\Imported\Photon\PhotonChat\Code\IChatClientListener.cs" />
+     <None Include="Assets\Imported\Photon\PhotonChat\Code\changes-chat.txt" />
+     <None Include="Assets\Imported\Photon\PhotonChat\Code\PhotonChat.asmdef" />
  <Reference Include="UnityEditor.UI">
  <HintPath>D:/Documents/UnityProjects/Moba1/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
  </Reference>
@@ -266,10 +266,10 @@
  <HintPath>C:/Program Files/Unity/Hub/Editor/2019.4.18f1/Editor/Data/PlaybackEngines/AndroidPlayer/UnityEditor.Android.Extensions.dll</HintPath>
  </Reference>
  <Reference Include="Photon3Unity3D">
- <HintPath>D:/Documents/UnityProjects/Moba1/Assets/Photon/PhotonLibs/Photon3Unity3D.dll</HintPath>
+ <HintPath>D:/Documents/UnityProjects/Moba1/Assets/Imported/Photon/PhotonLibs/Photon3Unity3D.dll</HintPath>
  </Reference>
  <Reference Include="websocket-sharp">
- <HintPath>D:/Documents/UnityProjects/Moba1/Assets/Photon/PhotonLibs/WebSocket/websocket-sharp.dll</HintPath>
+ <HintPath>D:/Documents/UnityProjects/Moba1/Assets/Imported/Photon/PhotonLibs/WebSocket/websocket-sharp.dll</HintPath>
  </Reference>
  <Reference Include="netstandard">
  <HintPath>C:/Program Files/Unity/Hub/Editor/2019.4.18f1/Editor/Data/NetStandard/ref/2.0.0/netstandard.dll</HintPath>

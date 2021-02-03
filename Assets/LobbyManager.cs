@@ -8,6 +8,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
 {
     public TMP_Text logText;
     public TMP_InputField nicknameInput;
+    public Button buttonStart;
     void Start()
     {
         logText.text = "";
@@ -18,6 +19,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     public override void OnConnectedToMaster()
     {
         Log("Connected to Master");
+        buttonStart.interactable = true;
     }
 
     private string GenerateRandomUsername()
@@ -37,7 +39,8 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     public override void OnJoinRandomFailed(short returnCode, string message)
     {
         Log("Cann't join existing room: " + message + "; Creating a new one");
-        PhotonNetwork.CreateRoom(null, new Photon.Realtime.RoomOptions {MaxPlayers = 10, CleanupCacheOnLeave = true});
+        var options = new Photon.Realtime.RoomOptions {MaxPlayers = 10, CleanupCacheOnLeave = true};
+        PhotonNetwork.CreateRoom(null, options);
     }
 
     public override void OnCreateRoomFailed(short returnCode, string message)
