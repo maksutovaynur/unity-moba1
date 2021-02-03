@@ -12,7 +12,7 @@
             "deviceId": "69jr9semq4gutoeu",
             "name": "com.unity3d.mobileremote",
             "processId": 20143,
-            "exited": false
+            "exited": true
         },
         {
             "deviceId": "69jr9semq4gutoeu",
@@ -24,6 +24,12 @@
             "deviceId": "69jr9semq4gutoeu",
             "name": "com.android.settings",
             "processId": 19749,
+            "exited": true
+        },
+        {
+            "deviceId": "69jr9semq4gutoeu",
+            "name": "com.DefaultCompany.com.unity.template.mobile2D",
+            "processId": 28103,
             "exited": false
         }
     ],

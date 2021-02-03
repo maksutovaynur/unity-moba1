@@ -59,8 +59,10 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\CameraPlayerFollower.cs" />
+     <Compile Include="Assets\Damageable.cs" />
      <Compile Include="Assets\FireballBehavior.cs" />
      <Compile Include="Assets\GameManager.cs" />
+     <Compile Include="Assets\HealthBarBehavior.cs" />
      <Compile Include="Assets\Imported\Joystick Pack\Examples\JoystickPlayerExample.cs" />
      <Compile Include="Assets\Imported\Joystick Pack\Examples\JoystickSetterExample.cs" />
      <Compile Include="Assets\Imported\Joystick Pack\Scripts\Base\Joystick.cs" />
@@ -244,6 +246,18 @@
  </Reference>
  <Reference Include="UnityEditor.UI">
  <HintPath>D:/Documents/UnityProjects/Moba1/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
+ </Reference>
+ <Reference Include="Unity.VectorGraphics">
+ <HintPath>D:/Documents/UnityProjects/Moba1/Library/ScriptAssemblies/Unity.VectorGraphics.dll</HintPath>
+ </Reference>
+ <Reference Include="Unity.InternalAPIEditorBridge.003">
+ <HintPath>D:/Documents/UnityProjects/Moba1/Library/ScriptAssemblies/Unity.InternalAPIEditorBridge.003.dll</HintPath>
+ </Reference>
+ <Reference Include="Unity.VectorGraphics.Editor">
+ <HintPath>D:/Documents/UnityProjects/Moba1/Library/ScriptAssemblies/Unity.VectorGraphics.Editor.dll</HintPath>
+ </Reference>
+ <Reference Include="Unity.InternalAPIEngineBridge.003">
+ <HintPath>D:/Documents/UnityProjects/Moba1/Library/ScriptAssemblies/Unity.InternalAPIEngineBridge.003.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.AIModule">
  <HintPath>C:/Program Files/Unity/Hub/Editor/2019.4.18f1/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>

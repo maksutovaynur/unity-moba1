@@ -19,16 +19,12 @@ enum AnimationState : byte
 public class PlayerControls : MonoBehaviour, IPunObservable
 {
     public TextMeshPro nickName;
-    public TextMeshPro statusBar;
-    public double inputThrottleInterval = 0.1;
-    public float flyPullForce = 5.0f;
-    public float flyPowerRecovery = 0.2f;
-    public float flyPowerLoss = 0.5f;
     public float jumpPullForce = 5.0f;
     public float movementSpeed = 1.6f;
     public float movementAcceleration = 8.0f;
     public GameObject fireballPrefab;
     public double fireballInterval = 0.5f;
+    public int maxHealth = 100;
 
     private sbyte lookDirectionState, moveDirectionState, moveSpeedState;
     private sbyte kbJump, kbMoveDirection, kbMoveSpeed;
@@ -48,7 +44,10 @@ public class PlayerControls : MonoBehaviour, IPunObservable
     private int groundCollisionNumber, lastJumpGroundCollisionNumber;
     private FixedJoystick joystick;
     private Vector2 fireballPoint;
+    private bool platformIsPC;
+    private bool platformIsMobile;
     private EventSystem eventSystem;
+    private Damageable damage;
 
     void Start()
     {
@@ -56,7 +55,8 @@ public class PlayerControls : MonoBehaviour, IPunObservable
         spriteRenderer = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
         var collider = GetComponent<Collider2D>();
-        eventSystem = GetComponent<EventSystem>();
+        eventSystem = EventSystem.current;
+        damage = GetComponent<Damageable>();
 
         joystick = FindObjectOfType<FixedJoystick>();
         playerStatusBar = GameObject.Find("PlayerStatusBar").GetComponent<TMP_Text>();
@@ -66,7 +66,6 @@ public class PlayerControls : MonoBehaviour, IPunObservable
         flyPower = 1.0f;
         lookDirectionState = 0;
         nickName.SetText(photonView.Owner.NickName);
-        statusBar.SetText("");
         animationState = AnimationState.Idle;
 
         grounded = false;
@@ -77,17 +76,33 @@ public class PlayerControls : MonoBehaviour, IPunObservable
         if (HasControl())
         {
             nickName.color = Color.green;
-            statusBar.color = Color.green;
             FindObjectOfType<CameraPlayerFollower>().target = this.transform;
+            
+            switch (Application.platform)
+            {
+                case RuntimePlatform.WindowsPlayer:
+                    platformIsPC = true;
+                    break;
+                case RuntimePlatform.WindowsEditor:
+                    platformIsPC = true;
+                    break;
+                case RuntimePlatform.Android:
+                    platformIsMobile = true;
+                    break;
+            }
+
+            if (!platformIsMobile)
+            {
+                Destroy(joystick.gameObject);
+            }
         }
         else
         {
             nickName.color = Color.red;
-            statusBar.color = Color.red;
             // rigidBody.bodyType = RigidbodyType2D.Static;
-            // rigidBody.gameObject.layer = 8;
             Destroy(rigidBody);
-            Destroy(collider);
+            collider.gameObject.layer = 8;
+            // Destroy(collider);
         }
     }
 
@@ -192,31 +207,38 @@ public class PlayerControls : MonoBehaviour, IPunObservable
         if (hor > 0.2f) kbMoveDirection = 1;
         else if (hor < -0.2f) kbMoveDirection = -1;
 
-        if (joystick.Horizontal > 0.2f) kbMoveDirection = 1;
-        else if (joystick.Horizontal < -0.2f) kbMoveDirection = -1;
-        if (Math.Abs(joystick.Horizontal) > 0.7f) kbMoveSpeed = 1;
+        if (platformIsMobile)
+        {
+            if (joystick.Horizontal > 0.2f) kbMoveDirection = 1;
+            else if (joystick.Horizontal < -0.2f) kbMoveDirection = -1;
+            if (Math.Abs(joystick.Horizontal) > 0.7f) kbMoveSpeed = 1;
 
-        if (joystick.Vertical > 0.3f) kbJump = 1;
+            if (joystick.Vertical > 0.3f) kbJump = 1;
+        }
 
         if (Input.GetKey(KeyCode.Space)) kbJump = 1;
         if (Input.GetKey(KeyCode.LeftShift)) kbMoveSpeed = 1;
         
         
         isFiringBalls = false;
-        if (Input.GetMouseButton(0))
+        if (platformIsPC && Input.GetMouseButton(0))
         {
-            fireballPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            isFiringBalls = true;
+                fireballPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                isFiringBalls = true;
         }
-        // else if (Input.touchCount > 0)
-        // {
-        //     var ts = Input.touches.Where(t => eventSystem.IsPointerOverGameObject(t.fingerId));
-        //     if (ts.Any())
-        //     {
-        //         fireballPoint = Camera.main.ScreenToWorldPoint(ts.First().position);
-        //         isFiringBalls = true;
-        //     }
-        // }
+
+        else if (platformIsMobile && Input.touchCount > 0)
+        {
+            var ts = Input.touches.Where(t => !eventSystem.IsPointerOverGameObject(t.fingerId));
+            ts = ts.Where(t => joystick.lastPointerId != t.fingerId);
+            ts = ts.Where(t => t.phase != TouchPhase.Ended && t.phase != TouchPhase.Canceled);
+            if (ts.Any())
+            {
+                var touch = ts.First();
+                fireballPoint = Camera.main.ScreenToWorldPoint(touch.position);
+                isFiringBalls = true;
+            }
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D other)
@@ -255,6 +277,7 @@ public class PlayerControls : MonoBehaviour, IPunObservable
 
             stream.SendNext(lookDirectionCast);
             stream.SendNext(animationState);
+            stream.SendNext(damage.GetHealth());
         }
         else
         {
@@ -265,6 +288,7 @@ public class PlayerControls : MonoBehaviour, IPunObservable
             }
 
             animationState = (AnimationState) stream.ReceiveNext();
+            damage.SetHealth((int) stream.ReceiveNext());
         }
     }
 
@@ -279,6 +303,11 @@ public class PlayerControls : MonoBehaviour, IPunObservable
                    Is in jump: {inJump}
                   Is grounded: {grounded}
               Is firing balls: {isFiringBalls}
+           AplicationPlatform: {Application.platform}
+                          PC?: {platformIsPC}
+                      Mobile?: {platformIsMobile}
+                  HasControl?: {HasControl()}
+                       Health: {damage.GetHealth()}
 ");
     }
 
