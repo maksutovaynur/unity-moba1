@@ -277,7 +277,6 @@ public class PlayerControls : MonoBehaviour, IPunObservable
 
             stream.SendNext(lookDirectionCast);
             stream.SendNext(animationState);
-            stream.SendNext(damage.GetHealth());
         }
         else
         {
@@ -288,7 +287,6 @@ public class PlayerControls : MonoBehaviour, IPunObservable
             }
 
             animationState = (AnimationState) stream.ReceiveNext();
-            damage.SetHealth((int) stream.ReceiveNext());
         }
     }
 

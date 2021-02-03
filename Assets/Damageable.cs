@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using Photon.Pun;
 using UnityEngine;
 
 
@@ -8,7 +9,7 @@ public interface ChangeHealthListener
     void ChangeHealth(int health);
 }
 
-public class Damageable : MonoBehaviour
+public class Damageable : MonoBehaviour, IPunObservable
 {
     public int maxHealth = 100;
     private int health;
@@ -62,11 +63,26 @@ public class Damageable : MonoBehaviour
         return health;
     }
 
-    public void SetHealth(int health)
+    public void SetHealth(int newHealth)
     {
         checkInit();
-        this.health = Math.Max(0, Math.Min(health, maxHealth));
-        Debug.Log("Damageable Set Health to " + this.health + ", tried to " + health);
+        health = Math.Max(0, Math.Min(newHealth, maxHealth));
+        Debug.Log("Damageable Set Health to " + health + ", tried to " + newHealth);
         NotifyHealthListeners();
+    }
+    
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        byte lookDirectionCast;
+        if (stream.IsWriting)
+        {
+            var healthToSend = GetHealth();
+            Debug.Log($"Sending health = {healthToSend}");
+            stream.SendNext(healthToSend);
+        }
+        else
+        {
+            SetHealth((int) stream.ReceiveNext());
+        }
     }
 }
